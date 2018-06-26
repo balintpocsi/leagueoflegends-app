@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="template.xhtml">
+    <ui:define name="head">
+       
+    </ui:define>
+    <ui:define name="body">
+   <div class="container">
+        <h2>League of Legends Spectator</h2>
+        <img src="league-of-legends-logo.jpg" alt="logo" style="width:30%;"/>
+        
+    <h:form id="login-form" style="padding-top: 100px;">
+        <div class="form-group">
+            <label>Get the latest <span class="matchstyle">#{matchHistory.getSlider()}</span> matches of the players</label><br/>
+            <h:inputText value="#{matchHistory.slider}" a:placeholder="Type a number 1-100" style="width: 30%;" styleClass="form-control valid-email"/>
+            <div class="error"></div>
+        </div>
+       <br/>
+       <br/>
+      Search for Summoner:
+      <div class="form-group">
+      <h:inputText value="#{matchHistory.input}" a:placeholder="Search for summoner..." styleClass="form-control valid-name" />
+      <div class="error"></div>
+      </div>
+      <h:commandButton value="Search" action="#{matchHistory.submit()}" type="submit" styleClass="submit-btn subheading align-cntr"/>
+      
+      <h:messages style="color:blue; padding-top: 30px; list-style-type: none;" />
+      
+    </h:form>
+   <c:if test="#{matchHistory.isMethodComplete}">
+       <div id="matchTable" class="matches">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Summoner Name</th>
+                <th>Champion</th>
+                <th>Champion Level</th>
+                <th>Points</th>
+                <th>Rank</th>
+                <th>Wins/Losses</th>
+                <th>Runes</th>
+                <th>Win rate</th>
+                <th>Team 1 win rate</th>
+                <th>Team 2 win rate</th>
+            </tr>
+        </thead>
+    <tbody>
+        
+        <c:forEach var="i" begin="0" end="#{matchHistory.list.size()-1}"> 
+            <c:choose>             
+                <c:when test="#{(matchHistory.list.size()-2)/2 >= i}"> 
+                        <tr>
+                            <td>#{matchHistory.list[i].summonerName}</td>
+                            <td>#{matchHistory.list[i].championNameByItsId}</td>
+                            <td>#{matchHistory.list[i].championLevel}</td>
+                            <td>#{matchHistory.list[i].championPoints}</td>
+                            <td>#{matchHistory.list[i].tier} #{matchHistory.list[i].rank}</td>
+                            <td>#{matchHistory.list[i].wins} / #{matchHistory.list[i].losses}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(0).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(0).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(1).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(1).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(2).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(2).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(3).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(3).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(4).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(4).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(5).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(5).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>#{matchHistory.list[i].getWinRate()}%</td>
+                            <td>#{matchHistory.winRateTeam1}%</td>
+                            <td>#{matchHistory.winRateTeam2}%</td> 
+                        </tr>
+                    
+                    <c:if test = "#{i >= (matchHistory.list.size()-2)/2}">
+                        <tr style="color: white !important; background-color: white !important;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+          
+                    </c:if>
+                </c:when> 
+            <c:otherwise> 
+                        <tr>
+                            <td>#{matchHistory.list[i].summonerName}</td>
+                            <td>#{matchHistory.list[i].championNameByItsId}</td>
+                            <td>#{matchHistory.list[i].championLevel}</td>
+                            <td>#{matchHistory.list[i].championPoints}</td>
+                            <td>#{matchHistory.list[i].tier} #{matchHistory.list[i].rank}</td>
+                            <td>#{matchHistory.list[i].wins} / #{matchHistory.list[i].losses}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(0).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(0).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(1).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(1).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(2).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(2).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(3).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(3).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(4).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(4).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tooltip2">#{matchHistory.list[i].perks.get(5).getName()}
+                                            <span class="tooltiptext2">#{matchHistory.list[i].perks.get(5).getLongDesc()}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>#{matchHistory.list[i].getWinRate()}%</td>
+                            <td>#{matchHistory.winRateTeam1}%</td>
+                            <td>#{matchHistory.winRateTeam2}%</td> 
+                        </tr>
+                    </c:otherwise> 
+                </c:choose> 
+            </c:forEach> 
+         </tbody>
+        </table>
+       </div>
+
+       
+       
+</c:if>
+<c:if test="#{!matchHistory.isMethodComplete}">
+    <script>
+           document.getElementById("matchTable").style.visibility = "hidden";
+    </script>
+ </c:if>
+        </div>
+    </ui:define>
+  </ui:composition> 
+</html>
+

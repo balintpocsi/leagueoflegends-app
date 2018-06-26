@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="template.xhtml">
+        <ui:define name="head">
+            
+        </ui:define>
+        <ui:define name="body">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#login">Bejelentkezés</a>
+                        </li>
+                        <li class="nav-item">
+                            <h:link styleClass="nav-link js-scroll-trigger" outcome="registration.xhtml" value="Regisztráció"/>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid p-0">
+                <section class="resume-section p-3 p-lg-5 d-flex d-column" id="login">
+                    <div>
+                        <div class="login-title-block">
+                            
+                            <h3 class="login-registration-wrapper align-cntr">
+                                
+                            </h3>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 offset-md-3">
+                                <h:outputText styleClass="success-registration" value="#{authController.successRegistrationMsg}"/>
+                                
+                                <h:outputText styleClass="error" value="#{authController.errorMsg}"></h:outputText>
+                                <h:form id="login-form" styleClass="blood-form">
+                                    <div class="form-group">
+                                        <h:inputText p:placeholder="E-mail" styleClass="form-control valid-email" id="j_username" label="j_username" value="#{authController.user.email}"/>
+                                        <div class="error"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:inputSecret p:placeholder="Jelszó" styleClass="form-control valid-pw" id="j_password" label="j_password" value="#{authController.user.password}"/>    
+                                        <div class="error"></div>
+                                    </div>
+
+                                    <h:commandButton styleClass="submit-btn subheading align-cntr" action="#{authController.loginUser()}" value="Bejelentkezés"/>
+                                </h:form>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div id="about">
+                            
+                            
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+

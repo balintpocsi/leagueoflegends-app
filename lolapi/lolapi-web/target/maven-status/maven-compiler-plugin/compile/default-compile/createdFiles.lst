@@ -1,0 +1,6 @@
+com\reaktorlabs\config\ApplicationConfig.class
+com\reaktorlabs\resource\AuthResource.class
+com\reaktorlabs\controllbeans\ChampionSave.class
+com\reaktorlabs\controllbeans\PerksSave.class
+com\reaktorlabs\controllbeans\MatchHistory.class
+com\reaktorlabs\view\AuthenticationController.class
